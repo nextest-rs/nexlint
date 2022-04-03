@@ -11,7 +11,7 @@ use std::{
 };
 
 /// The number of directories between the project root and the root of this crate.
-pub const X_DEPTH: usize = 2;
+pub const X_DEPTH: usize = 1;
 
 /// Returns the project root. TODO: switch uses to XCoreContext::project_root instead)
 pub fn project_root() -> &'static Utf8Path {

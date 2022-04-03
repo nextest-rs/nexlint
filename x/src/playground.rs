@@ -105,6 +105,7 @@ impl ContentLinter for PlaygroundContent {
 pub struct Args {
     /// Dummy arg that doesn't do anything
     #[structopt(long)]
+    #[allow(dead_code)]
     dummy: bool,
 }
 
