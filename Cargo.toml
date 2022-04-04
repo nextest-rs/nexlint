@@ -1,5 +1,7 @@
 [workspace]
 members = [
+    "nexlint",
+    "nexlint-lints",
     "x",
     "x-core",
     "x-lint",
