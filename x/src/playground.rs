@@ -7,7 +7,6 @@
 
 #![allow(unused_variables)]
 
-use anyhow::anyhow;
 use nexlint::{prelude::*, NexLintContext};
 use nexlint_lints::handle_lint_results;
 use structopt::StructOpt;
