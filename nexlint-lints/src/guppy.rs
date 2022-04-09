@@ -219,8 +219,8 @@ pub struct DirectDepDupsConfig {
 }
 
 impl<'cfg> DirectDepDups<'cfg> {
-    pub fn new(config: &'cfg DirectDepDupsConfig) -> crate::Result<Self> {
-        Ok(Self { config })
+    pub fn new(config: &'cfg DirectDepDupsConfig) -> Self {
+        Self { config }
     }
 }
 

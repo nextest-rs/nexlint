@@ -10,7 +10,7 @@ mod toml;
 mod whitespace;
 
 pub mod project {
-    pub use super::guppy::{BannedDeps, DirectDepDups};
+    pub use super::guppy::{BannedDeps, BannedDepsConfig, DirectDepDups, DirectDepDupsConfig};
 }
 
 pub mod package {

@@ -1,6 +1,3 @@
-// Copyright (c) The Diem Core Contributors
-// SPDX-License-Identifier: Apache-2.0
-
 //! Playground for arbitrary code.
 //!
 //! This lets users experiment with new lints and other throwaway code.
@@ -10,10 +7,10 @@
 
 #![allow(unused_variables)]
 
-use crate::context::XContext;
 use anyhow::anyhow;
+use nexlint::{prelude::*, NexLintContext};
+use nexlint_lints::handle_lint_results;
 use structopt::StructOpt;
-use x_lint::prelude::*;
 
 #[derive(Copy, Clone, Debug)]
 struct PlaygroundProject;
@@ -109,8 +106,9 @@ pub struct Args {
     dummy: bool,
 }
 
-pub fn run(args: Args, xctx: XContext) -> crate::Result<()> {
-    let engine = LintEngineConfig::new(xctx.core())
+pub fn run(args: Args) -> crate::Result<()> {
+    let nexlint_context = NexLintContext::from_current_dir()?;
+    let engine = LintEngineConfig::new(&nexlint_context)
         .with_project_linters(&[&PlaygroundProject])
         .with_package_linters(&[&PlaygroundPackage])
         .with_file_path_linters(&[&PlaygroundFilePath])
@@ -119,19 +117,5 @@ pub fn run(args: Args, xctx: XContext) -> crate::Result<()> {
 
     let results = engine.run()?;
 
-    for (source, message) in &results.messages {
-        println!(
-            "[{}] [{}] [{}]: {}\n",
-            message.level(),
-            source.name(),
-            source.kind(),
-            message.message()
-        );
-    }
-
-    if !results.messages.is_empty() {
-        Err(anyhow!("there were lint errors"))
-    } else {
-        Ok(())
-    }
+    handle_lint_results(results)
 }

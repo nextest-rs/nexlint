@@ -9,7 +9,7 @@ pub struct AllowedPaths {
 }
 
 // Regex for allowed characters in paths. Regex must have ^ and $ anchors.
-pub const DEFAULT_ALLOWED_PATHS_REGEX: &str = r#"^([a-zA-Z0-9._\\-/@:]|-)+$"#;
+pub const DEFAULT_ALLOWED_PATHS_REGEX: &str = "^([a-zA-Z0-9._\\-/@:]|-)+$";
 
 impl AllowedPaths {
     pub fn new(allowed_paths: &str) -> crate::Result<Self> {
