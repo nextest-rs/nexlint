@@ -3,8 +3,6 @@ members = [
     "nexlint",
     "nexlint-lints",
     "x",
-    "x-core",
-    "x-lint",
 ]
 
 # Build guppy in opt mode so that x commands are faster.
