@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "eXtended cargo tasks"
 edition = "2018"
 publish = false
-license = "Apache-2.0"
+license = "Apache-2.0 OR MIT"
 
 [dependencies]
 structopt = "0.3.21"

@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 #![forbid(unsafe_code)]
 
 use chrono::Local;

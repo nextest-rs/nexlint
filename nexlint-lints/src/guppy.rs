@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 //! Project and package linters that run queries on guppy.
 
 use guppy::{graph::PackagePublish, Version, VersionReq};

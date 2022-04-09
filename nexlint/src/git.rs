@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use crate::errors::*;
 use camino::{Utf8Path, Utf8PathBuf};
 use determinator::Utf8Paths0;

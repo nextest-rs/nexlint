@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use nexlint::{prelude::*, NexLintContext};
 use nexlint_lints::{
     content::*,

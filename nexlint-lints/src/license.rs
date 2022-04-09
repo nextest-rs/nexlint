@@ -1,8 +1,11 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use nexlint::prelude::*;
 use std::collections::HashSet;
 
 static LICENSE_HEADER: &str = "\
-                               SPDX-License-Identifier: Apache-2.0\n\
+                               SPDX-License-Identifier: MIT OR Apache-2.0\n\
                                ";
 
 #[derive(Copy, Clone, Debug)]

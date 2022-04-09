@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 //! Lint engine.
 //!
 //! The overall design is generally inspired by

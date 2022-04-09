@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 //! Playground for arbitrary code.
 //!
 //! This lets users experiment with new lints and other throwaway code.

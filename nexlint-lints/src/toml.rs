@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use camino::Utf8Path;
 use colored_diff::PrettyDifference;
 use nexlint::prelude::*;

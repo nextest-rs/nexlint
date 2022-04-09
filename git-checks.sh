@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright (c) The nextest Contributors
+# SPDX-License-Identifier: MIT OR Apache-2.0
 
 set -e
 

@@ -1,3 +1,6 @@
+// Copyright (c) The nextest Contributors
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use crate::git::GitCli;
 use camino::{Utf8Path, Utf8PathBuf};
 use debug_ignore::DebugIgnore;
