@@ -4,20 +4,22 @@
 use nexlint::prelude::*;
 use std::collections::HashSet;
 
-static LICENSE_HEADER: &str = "\
-                               SPDX-License-Identifier: MIT OR Apache-2.0\n\
-                               ";
-
 #[derive(Copy, Clone, Debug)]
-pub struct LicenseHeader;
+pub struct LicenseHeader<'a>(&'a str);
 
-impl Linter for LicenseHeader {
+impl<'a> LicenseHeader<'a> {
+    pub fn new(header: &'a str) -> Self {
+        Self(header)
+    }
+}
+
+impl<'a> Linter for LicenseHeader<'a> {
     fn name(&self) -> &'static str {
         "license-header"
     }
 }
 
-impl ContentLinter for LicenseHeader {
+impl<'a> ContentLinter for LicenseHeader<'a> {
     fn pre_run<'l>(&self, file_ctx: &FilePathContext<'l>) -> Result<RunStatus<'l>> {
         // TODO: Add a way to pass around state between pre_run and run, so that this computation
         // only needs to be done once.
@@ -49,10 +51,11 @@ impl ContentLinter for LicenseHeader {
                 let maybe_license: HashSet<_> = content
                     .lines()
                     .skip_while(|line| line.is_empty())
-                    .take(2)
+                    .take(4)
                     .map(|s| s.trim_start_matches("// "))
                     .collect();
-                !LICENSE_HEADER
+                !self
+                    .0
                     .lines()
                     .collect::<HashSet<_>>()
                     .is_subset(&maybe_license)
@@ -62,10 +65,11 @@ impl ContentLinter for LicenseHeader {
                     .lines()
                     .skip_while(|line| line.starts_with("#!"))
                     .skip_while(|line| line.is_empty())
-                    .take(2)
+                    .take(4)
                     .map(|s| s.trim_start_matches("# "))
                     .collect();
-                !LICENSE_HEADER
+                !self
+                    .0
                     .lines()
                     .collect::<HashSet<_>>()
                     .is_subset(&maybe_license)

@@ -11,6 +11,10 @@ use nexlint_lints::{
 };
 use structopt::StructOpt;
 
+static LICENSE_HEADER: &str = "\
+                               SPDX-License-Identifier: MIT OR Apache-2.0\n\
+                               ";
+
 #[derive(Debug, StructOpt)]
 pub struct Args {
     #[structopt(long)]
@@ -35,7 +39,7 @@ pub fn run(args: Args) -> crate::Result<()> {
 
     let whitespace_exceptions = build_exceptions(&[])?;
     let content_linters: &[&dyn ContentLinter] = &[
-        &LicenseHeader,
+        &LicenseHeader::new(LICENSE_HEADER),
         &RootToml,
         &EofNewline::new(&whitespace_exceptions),
         &TrailingWhitespace::new(&whitespace_exceptions),
