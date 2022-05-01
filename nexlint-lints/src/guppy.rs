@@ -291,6 +291,12 @@ impl UnpublishedPackagesOnlyUsePathDependencies {
     }
 }
 
+impl Default for UnpublishedPackagesOnlyUsePathDependencies {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Linter for UnpublishedPackagesOnlyUsePathDependencies {
     fn name(&self) -> &'static str {
         "unpublished-packages-only-use-path-dependencies"
