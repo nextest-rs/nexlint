@@ -1,3 +1,4 @@
 [alias]
 x = "run --package x --bin x --"
 xlint = "run --package x --bin x -- lint"
+xfmt = "fmt -- --config imports_granularity=Crate"
