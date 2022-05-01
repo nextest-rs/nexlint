@@ -100,6 +100,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "cfg-expr"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e068cb2806bbc15b439846dc16c5f89f8599f2c3e4d73d4449d38f9b2f0b6c5"
+dependencies = [
+ "smallvec",
+ "target-lexicon",
+]
+
+[[package]]
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -197,14 +207,14 @@ checksum = "7e51694c5f8b91baf933e6429a3df4ff3e9f1160386d150790b97bef73337d1b"
 
 [[package]]
 name = "determinator"
-version = "0.7.0"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d6cd961d655fa64c18f515cf6c2e4bd38deaeaa1a8c7d0142c18d750ef73d18"
+checksum = "463a5e4697c57c75253dbce1aa6829a63c1b09f3615e40c5e6466cb279b61f49"
 dependencies = [
  "camino",
  "globset",
- "guppy",
- "itertools",
+ "guppy 0.14.1",
+ "guppy-workspace-hack",
  "once_cell",
  "petgraph",
  "rayon",
@@ -282,6 +292,31 @@ dependencies = [
  "cfg-if",
  "debug-ignore",
  "fixedbitset",
+ "guppy-workspace-hack",
+ "indexmap",
+ "itertools",
+ "nested",
+ "once_cell",
+ "pathdiff",
+ "petgraph",
+ "semver",
+ "serde",
+ "serde_json",
+ "smallvec",
+ "target-spec 0.9.0",
+]
+
+[[package]]
+name = "guppy"
+version = "0.14.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbbda4f76555041b3730035c987a24a9d41e8e0b2c7fe1d512c0cab82e753146"
+dependencies = [
+ "camino",
+ "cargo_metadata",
+ "cfg-if",
+ "debug-ignore",
+ "fixedbitset",
  "guppy-summaries",
  "guppy-workspace-hack",
  "indexmap",
@@ -295,19 +330,21 @@ dependencies = [
  "serde",
  "serde_json",
  "smallvec",
- "target-spec",
+ "static_assertions",
+ "target-spec 1.0.1",
  "toml",
 ]
 
 [[package]]
 name = "guppy-summaries"
-version = "0.6.1"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2ca5ad97ff788027e546992f7f374e277da50ca4e06dab268f33088a74897e9e"
+checksum = "e720e61e79dca0df27e481ae3a47c2a8a51f1cc884bdec4953cf08eb09e980cc"
 dependencies = [
  "camino",
  "cfg-if",
  "diffus",
+ "guppy-workspace-hack",
  "semver",
  "serde",
  "toml",
@@ -429,7 +466,7 @@ dependencies = [
  "camino",
  "debug-ignore",
  "determinator",
- "guppy",
+ "guppy 0.12.6",
  "hex",
  "once_cell",
  "serde",
@@ -443,7 +480,7 @@ dependencies = [
  "camino",
  "colored-diff",
  "globset",
- "guppy",
+ "guppy 0.12.6",
  "nexlint",
  "regex",
  "serde",
@@ -647,6 +684,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2dd574626839106c320a323308629dcb1acfc96e32a8cba364ddc61ac23ee83"
 
 [[package]]
+name = "static_assertions"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+
+[[package]]
 name = "strsim"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -699,7 +742,18 @@ version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fdc03d14ed79a75163d3509ebf1970a2ec67945c5cac68d947d1dddace43cec0"
 dependencies = [
- "cfg-expr",
+ "cfg-expr 0.9.1",
+ "target-lexicon",
+]
+
+[[package]]
+name = "target-spec"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a479a83ee0f97d90b2ba593c696968c94d781835117362d9fcd42ca34faa5f1"
+dependencies = [
+ "cfg-expr 0.10.2",
+ "guppy-workspace-hack",
  "serde",
  "target-lexicon",
 ]
