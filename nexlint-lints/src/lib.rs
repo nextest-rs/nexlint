@@ -18,8 +18,9 @@ pub mod project {
 
 pub mod package {
     pub use super::guppy::{
-        CrateNamesPaths, CratesInCratesDirectory, EnforcedAttributes, IrrelevantBuildDeps,
-        OnlyPublishToCratesIo, PublishedPackagesDontDependOnUnpublishedPackages,
+        CrateNamesPaths, CratesInCratesDirectory, CratesOnlyInCratesDirectory, EnforcedAttributes,
+        IrrelevantBuildDeps, OnlyPublishToCratesIo,
+        PublishedPackagesDontDependOnUnpublishedPackages,
         UnpublishedPackagesOnlyUsePathDependencies,
     };
 }
