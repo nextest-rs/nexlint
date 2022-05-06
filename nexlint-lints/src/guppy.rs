@@ -420,7 +420,7 @@ pub struct CratesInCratesDirectory;
 
 impl Linter for CratesInCratesDirectory {
     fn name(&self) -> &'static str {
-        "only-publish-to-crates-io"
+        "crates-in-crates-directory"
     }
 }
 
@@ -451,6 +451,37 @@ impl PackageLinter for CratesInCratesDirectory {
                     LintLevel::Error,
                     "crates in the `crates/` directory must be in a flat directory structure, no nesting",
                 );
+        }
+
+        Ok(RunStatus::Executed)
+    }
+}
+
+/// Enforces that all crates are inside the `crates/` directory
+#[derive(Debug)]
+pub struct CratesOnlyInCratesDirectory;
+
+impl Linter for CratesOnlyInCratesDirectory {
+    fn name(&self) -> &'static str {
+        "crates-only-in-crates-directory"
+    }
+}
+
+impl PackageLinter for CratesOnlyInCratesDirectory {
+    fn run<'l>(
+        &self,
+        ctx: &PackageContext<'l>,
+        out: &mut LintFormatter<'l, '_>,
+    ) -> Result<RunStatus<'l>> {
+        let mut path_components = ctx.workspace_path().components();
+        match path_components.next().map(|p| p.as_str()) {
+            Some("crates") => {}
+            _ => {
+                out.write(
+                    LintLevel::Error,
+                    "crates are only allowed to be in the `crates/` directory",
+                );
+            }
         }
 
         Ok(RunStatus::Executed)
