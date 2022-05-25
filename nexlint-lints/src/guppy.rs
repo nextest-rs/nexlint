@@ -55,6 +55,12 @@ impl<'cfg> ProjectLinter for BannedDeps<'cfg> {
             for link in package.reverse_direct_links() {
                 let from = link.from();
                 if let Some(workspace_path) = from.source().workspace_path() {
+                    // Skip the workspace hack package if it exists
+                    if let Some(workspace_hack_name) = ctx.workspace_hack_name() {
+                        if from.name() == workspace_hack_name {
+                            continue;
+                        }
+                    }
                     out.write_kind(
                         LintKind::Package {
                             name: from.name(),
@@ -246,6 +252,14 @@ impl<'cfg> ProjectLinter for DirectDepDups<'cfg> {
         package_graph.query_workspace().resolve_with_fn(|_, link| {
             // Collect direct dependencies of workspace packages.
             let (from, to) = link.endpoints();
+
+            // Skip the workspace hack package if it exists
+            if let Some(workspace_hack_name) = ctx.workspace_hack_name() {
+                if from.name() == workspace_hack_name {
+                    return false;
+                }
+            }
+
             if from.in_workspace() && !to.in_workspace() {
                 direct_deps
                     .entry(to.name())

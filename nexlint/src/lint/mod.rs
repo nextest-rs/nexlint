@@ -192,5 +192,4 @@ pub mod prelude {
         runner::{LintEngine, LintEngineConfig, LintResults},
         LintFormatter, LintKind, LintLevel, LintMessage, LintSource, Linter, RunStatus, SkipReason,
     };
-    // pub use x_core::{Result, SystemError};
 }

@@ -50,6 +50,13 @@ impl<'l> ProjectContext<'l> {
     pub fn full_path(&self, path: impl AsRef<Utf8Path>) -> Utf8PathBuf {
         self.core.project_root().join(path.as_ref())
     }
+
+    /// Returns the name of the hakari workspace-hack package if it exists
+    pub fn workspace_hack_name(&self) -> Option<&'l str> {
+        self.core
+            .hakari_config()
+            .and_then(|config| config.builder.hakari_package.as_deref())
+    }
 }
 
 impl<'l> LintContext<'l> for ProjectContext<'l> {

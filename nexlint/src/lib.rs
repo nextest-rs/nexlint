@@ -5,7 +5,9 @@ use crate::git::GitCli;
 use camino::{Utf8Path, Utf8PathBuf};
 use debug_ignore::DebugIgnore;
 use guppy::{graph::PackageGraph, MetadataCommand};
+use hakari::summaries::HakariConfig;
 use once_cell::sync::OnceCell;
+use std::fs;
 
 mod errors;
 mod git;
@@ -34,6 +36,7 @@ pub struct NexLintContext {
     current_dir: Utf8PathBuf,
     current_rel_dir: Utf8PathBuf,
     git_cli: GitCli,
+    hakari_config: Option<HakariConfig>,
     package_graph: DebugIgnore<OnceCell<PackageGraph>>,
 }
 
@@ -51,10 +54,24 @@ impl NexLintContext {
             }
         };
 
+        let hakari_config_path = git_cli.root().join(hakari::summaries::DEFAULT_CONFIG_PATH);
+        let hakari_config = if hakari_config_path.exists() {
+            let contents = fs::read_to_string(hakari_config_path)
+                .map_err(|e| SystemError::io("reading hakari config", e))?;
+            let config: HakariConfig = contents
+                .parse()
+                .map_err(|e| SystemError::de("reading hakari config", e))?;
+
+            Some(config)
+        } else {
+            None
+        };
+
         Ok(Self {
             current_dir,
             current_rel_dir,
             git_cli,
+            hakari_config,
             package_graph: DebugIgnore(OnceCell::new()),
         })
     }
@@ -119,5 +136,9 @@ impl NexLintContext {
             .into_iter()
             .partition(|name| workspace.contains_name(name));
         Ok((known, unknown))
+    }
+
+    pub fn hakari_config(&self) -> Option<&HakariConfig> {
+        self.hakari_config.as_ref()
     }
 }
