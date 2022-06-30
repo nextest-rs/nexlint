@@ -291,6 +291,77 @@ impl<'cfg> ProjectLinter for DirectDepDups<'cfg> {
     }
 }
 
+#[derive(Debug)]
+pub struct DirectDuplicateGitDependencies;
+
+impl Linter for DirectDuplicateGitDependencies {
+    fn name(&self) -> &'static str {
+        "direct-duplicate-git-dependencies"
+    }
+}
+
+impl ProjectLinter for DirectDuplicateGitDependencies {
+    fn run<'l>(
+        &self,
+        ctx: &ProjectContext<'l>,
+        out: &mut LintFormatter<'l, '_>,
+    ) -> Result<RunStatus<'l>> {
+        use guppy::graph::ExternalSource;
+        use std::fmt::Write;
+
+        let package_graph = ctx.package_graph()?;
+
+        // This is a map of direct deps by repository -> resolved hash -> (from package, to package) that depend on it.
+        #[allow(clippy::type_complexity)]
+        let mut direct_deps: BTreeMap<&str, BTreeMap<&str, Vec<(&str, &str)>>> = BTreeMap::new();
+        package_graph.query_workspace().resolve_with_fn(|_, link| {
+            // Collect direct dependencies of workspace packages.
+            let (from, to) = link.endpoints();
+
+            // Skip the workspace hack package if it exists
+            if let Some(workspace_hack_name) = ctx.workspace_hack_name() {
+                if from.name() == workspace_hack_name {
+                    return false;
+                }
+            }
+
+            if from.in_workspace() && !to.in_workspace() {
+                // Skip all dependencies that are not git dependencies
+                if let Some(ExternalSource::Git {
+                    repository,
+                    resolved,
+                    ..
+                }) = to.source().parse_external()
+                {
+                    direct_deps
+                        .entry(repository)
+                        .or_default()
+                        .entry(resolved)
+                        .or_default()
+                        .push((from.name(), to.name()))
+                }
+            }
+            // query_workspace + preventing further traversals will mean that only direct
+            // dependencies are considered.
+            false
+        });
+        for (repository, versions) in direct_deps {
+            if versions.len() > 1 {
+                let mut msg = format!("duplicate git dependency on repository '{repository}':\n");
+                for (resolved_hash, packages) in versions {
+                    writeln!(msg, "  * {resolved_hash}:").unwrap();
+                    for (from, to) in packages {
+                        writeln!(msg, "    * {from} -> {to}").unwrap();
+                    }
+                }
+                out.write(LintLevel::Error, msg);
+            }
+        }
+
+        Ok(RunStatus::Executed)
+    }
+}
+
 /// Ensure that all unpublished packages only use path dependencies for workspace dependencies
 #[derive(Debug)]
 pub struct UnpublishedPackagesOnlyUsePathDependencies {
