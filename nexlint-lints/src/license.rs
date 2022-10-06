@@ -47,7 +47,11 @@ impl<'a> ContentLinter for LicenseHeader<'a> {
         let file_type = FileType::new(ctx.file_ctx()).expect("None filtered out in pre_run");
         // Determine if the file is missing the license header
         let missing_header = match file_type {
-            FileType::Rust | FileType::Proto => {
+            FileType::Rust
+            | FileType::Proto
+            | FileType::JavaScript
+            | FileType::TypeScript
+            | FileType::Move => {
                 let maybe_license: HashSet<_> = content
                     .lines()
                     .skip_while(|line| line.is_empty())
@@ -88,6 +92,9 @@ enum FileType {
     Rust,
     Shell,
     Proto,
+    JavaScript,
+    TypeScript,
+    Move,
 }
 
 impl FileType {
@@ -96,6 +103,11 @@ impl FileType {
             Some("rs") => Some(FileType::Rust),
             Some("sh") => Some(FileType::Shell),
             Some("proto") => Some(FileType::Proto),
+            Some("js") => Some(FileType::JavaScript),
+            Some("jsx") => Some(FileType::JavaScript),
+            Some("ts") => Some(FileType::TypeScript),
+            Some("tsx") => Some(FileType::TypeScript),
+            Some("move") => Some(FileType::Move),
             _ => None,
         }
     }
