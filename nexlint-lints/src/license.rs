@@ -64,7 +64,7 @@ impl<'a> ContentLinter for LicenseHeader<'a> {
                     .collect::<HashSet<_>>()
                     .is_subset(&maybe_license)
             }
-            FileType::Shell => {
+            FileType::Shell | FileType::Python => {
                 let maybe_license = content
                     .lines()
                     .skip_while(|line| line.starts_with("#!"))
@@ -95,6 +95,7 @@ enum FileType {
     JavaScript,
     TypeScript,
     Move,
+    Python,
 }
 
 impl FileType {
@@ -108,6 +109,7 @@ impl FileType {
             Some("ts") => Some(FileType::TypeScript),
             Some("tsx") => Some(FileType::TypeScript),
             Some("move") => Some(FileType::Move),
+            Some("py") => Some(FileType::Python),
             _ => None,
         }
     }
