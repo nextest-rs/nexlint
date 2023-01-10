@@ -111,6 +111,7 @@ impl FileType {
             Some("ts") => Some(FileType::TypeScript),
             Some("tsx") => Some(FileType::TypeScript),
             Some("mts") => Some(FileType::TypeScript),
+            Some("cts") => Some(FileType::TypeScript),
             Some("move") => Some(FileType::Move),
             Some("py") => Some(FileType::Python),
             _ => None,
