@@ -8,7 +8,7 @@ use nexlint::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap};
 
-/// Ban certain crates from being used as direct dependencies or in the default build.
+/// Ban certain crates from being used as dependencies.
 #[derive(Debug)]
 pub struct BannedDeps<'cfg> {
     config: &'cfg BannedDepsConfig,
@@ -16,9 +16,24 @@ pub struct BannedDeps<'cfg> {
 
 #[derive(Clone, Serialize, Deserialize, Debug, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
-pub struct BannedDepsConfig {
-    /// Banned direct dependencies
-    pub direct: HashMap<String, String>,
+pub struct BannedDepsConfig(HashMap<String, BannedDepConfig>);
+
+#[derive(Clone, Serialize, Deserialize, Debug, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub struct BannedDepConfig {
+    /// Message to print if this dependency is found
+    message: String,
+    #[serde(rename = "type")]
+    type_: BannedDepType,
+}
+
+#[derive(Clone, Serialize, Deserialize, Debug, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum BannedDepType {
+    /// Dependency is always banned.
+    Always,
+    /// Dependency is only banned as a direct dependency.
+    Direct,
 }
 
 impl<'cfg> BannedDeps<'cfg> {
@@ -41,34 +56,52 @@ impl<'cfg> ProjectLinter for BannedDeps<'cfg> {
     ) -> Result<RunStatus<'l>> {
         let package_graph = ctx.package_graph()?;
 
-        let filter_ban = |banned: &'cfg HashMap<String, String>| {
+        let filter_ban = |banned: &'cfg HashMap<String, BannedDepConfig>| {
             package_graph.packages().filter_map(move |package| {
                 banned
                     .get(package.name())
-                    .map(move |message| (package, message))
+                    .map(move |config| (package, config))
             })
         };
 
-        let banned_direct = &self.config.direct;
-        for (package, message) in filter_ban(banned_direct) {
-            // Look at the reverse direct dependencies of this package.
-            for link in package.reverse_direct_links() {
-                let from = link.from();
-                if let Some(workspace_path) = from.source().workspace_path() {
-                    // Skip the workspace hack package if it exists
-                    if let Some(workspace_hack_name) = ctx.workspace_hack_name() {
-                        if from.name() == workspace_hack_name {
-                            continue;
+        for (package, config) in filter_ban(&self.config.0) {
+            match config.type_ {
+                BannedDepType::Always => {
+                    out.write_kind(
+                        LintKind::Project,
+                        LintLevel::Error,
+                        format!(
+                            "banned project dependency '{}': {}",
+                            package.name(),
+                            config.message
+                        ),
+                    );
+                }
+                BannedDepType::Direct => {
+                    // Look at the reverse direct dependencies of this package.
+                    for link in package.reverse_direct_links() {
+                        let from = link.from();
+                        if let Some(workspace_path) = from.source().workspace_path() {
+                            // Skip the workspace hack package if it exists
+                            if let Some(workspace_hack_name) = ctx.workspace_hack_name() {
+                                if from.name() == workspace_hack_name {
+                                    continue;
+                                }
+                            }
+                            out.write_kind(
+                                LintKind::Package {
+                                    name: from.name(),
+                                    workspace_path,
+                                },
+                                LintLevel::Error,
+                                format!(
+                                    "banned direct dependency '{}': {}",
+                                    package.name(),
+                                    config.message
+                                ),
+                            );
                         }
                     }
-                    out.write_kind(
-                        LintKind::Package {
-                            name: from.name(),
-                            workspace_path,
-                        },
-                        LintLevel::Error,
-                        format!("banned direct dependency '{}': {}", package.name(), message),
-                    );
                 }
             }
         }
