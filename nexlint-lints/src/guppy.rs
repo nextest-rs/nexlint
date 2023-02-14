@@ -16,15 +16,15 @@ pub struct BannedDeps<'cfg> {
 
 #[derive(Clone, Serialize, Deserialize, Debug, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
-pub struct BannedDepsConfig(HashMap<String, BannedDepConfig>);
+pub struct BannedDepsConfig(pub HashMap<String, BannedDepConfig>);
 
 #[derive(Clone, Serialize, Deserialize, Debug, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub struct BannedDepConfig {
     /// Message to print if this dependency is found
-    message: String,
+    pub message: String,
     #[serde(rename = "type")]
-    type_: BannedDepType,
+    pub type_: BannedDepType,
 }
 
 #[derive(Clone, Serialize, Deserialize, Debug, PartialEq, Eq)]
