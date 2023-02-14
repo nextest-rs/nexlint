@@ -14,8 +14,8 @@ mod whitespace;
 
 pub mod project {
     pub use super::guppy::{
-        BannedDeps, BannedDepsConfig, DirectDepDups, DirectDepDupsConfig,
-        DirectDuplicateGitDependencies,
+        BannedDepConfig, BannedDepType, BannedDeps, BannedDepsConfig, DirectDepDups,
+        DirectDepDupsConfig, DirectDuplicateGitDependencies,
     };
 }
 
