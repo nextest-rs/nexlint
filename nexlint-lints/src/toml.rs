@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
 use camino::Utf8Path;
-use colored_diff::PrettyDifference;
 use nexlint::prelude::*;
 use serde::{Deserialize, Serialize};
 use toml::{de, ser};
@@ -77,15 +76,9 @@ pub(super) fn toml_mismatch_message<T: Serialize>(
         .map_err(|err| SystemError::ser("serializing expected workspace members", err))?;
     let actual = to_toml_string(actual)
         .map_err(|err| SystemError::ser("serializing actual workspace members", err))?;
-    // TODO: print out a context diff instead of the full diff.
-    Ok(format!(
-        "{}:\n\n{}",
-        header,
-        PrettyDifference {
-            expected: &expected,
-            actual: &actual
-        }
-    ))
+
+    let diff = diffy::create_patch(&actual, &expected);
+    Ok(format!("{}:\n\n{}", header, diff))
 }
 
 /// Serializes some data to toml using this project's standard code style.

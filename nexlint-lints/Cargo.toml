@@ -7,7 +7,7 @@ license = "Apache-2.0 OR MIT"
 [dependencies]
 anyhow = "1.0.52"
 camino = "1.0.3"
-colored-diff = "0.2.2"
+diffy = "0.3"
 globset = "0.4.6"
 guppy = "0.15.0"
 nexlint = { path = "../nexlint" }
