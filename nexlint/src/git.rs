@@ -48,7 +48,7 @@ impl GitCli {
             let output = self
                 .git_command()
                 // The -z causes files to not be quoted, and to be separated by \0.
-                .args(&["ls-files", "-z"])
+                .args(["ls-files", "-z"])
                 .output()
                 .map_err(|err| SystemError::io("running git ls-files", err))?;
             if !output.status.success() {
@@ -67,7 +67,7 @@ impl GitCli {
     pub fn merge_base(&self, commit_ref: &str) -> Result<GitHash> {
         let output = self
             .git_command()
-            .args(&["merge-base", "HEAD", commit_ref])
+            .args(["merge-base", "HEAD", commit_ref])
             .output()
             .map_err(|err| {
                 SystemError::io(format!("running git merge-base HEAD {}", commit_ref), err)
@@ -96,7 +96,7 @@ impl GitCli {
         diff_filter: Option<&str>,
     ) -> Result<Utf8Paths0> {
         let mut command = self.git_command();
-        command.args(&["diff", "-z", "--name-only"]);
+        command.args(["diff", "-z", "--name-only"]);
         if let Some(diff_filter) = diff_filter {
             command.arg(format!("--diff-filter={}", diff_filter));
         }
@@ -126,7 +126,7 @@ impl GitCli {
     // Attempt to query for the root of the repository
     fn repository_root() -> Result<Utf8PathBuf> {
         let output = Command::new("git")
-            .args(&["rev-parse", "--show-toplevel"])
+            .args(["rev-parse", "--show-toplevel"])
             .stderr(Stdio::inherit())
             .output()
             .map_err(|err| SystemError::io("running git rev-parse --show-toplevel", err))?;
@@ -158,7 +158,7 @@ impl GitCli {
         let output = self
             .git_command()
             .current_dir(dir)
-            .args(&["rev-parse", "--git-dir"])
+            .args(["rev-parse", "--git-dir"])
             .output()
             .map_err(|err| SystemError::io("checking if a directory is a git repo", err))?;
 
@@ -188,6 +188,6 @@ impl<'a, 'b> From<&'a GitHash> for Cow<'b, OsStr> {
 
 impl fmt::LowerHex for GitHash {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", hex::encode(&self.0))
+        write!(f, "{}", hex::encode(self.0))
     }
 }

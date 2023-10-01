@@ -28,7 +28,7 @@ pub enum SystemError {
     },
     Guppy {
         context: Cow<'static, str>,
-        err: guppy::Error,
+        err: Box<guppy::Error>,
     },
     Io {
         context: Cow<'static, str>,
@@ -66,7 +66,7 @@ impl SystemError {
     pub fn guppy(context: impl Into<Cow<'static, str>>, err: guppy::Error) -> Self {
         SystemError::Guppy {
             context: context.into(),
-            err,
+            err: Box::new(err),
         }
     }
 
