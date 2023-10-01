@@ -4,6 +4,7 @@ members = [
     "nexlint-lints",
     "x",
 ]
+resolver = "2"
 
 # Build guppy in opt mode so that x commands are faster.
 [profile.dev.package.guppy]
