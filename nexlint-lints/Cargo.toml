@@ -5,7 +5,7 @@ edition = "2021"
 license = "Apache-2.0 OR MIT"
 
 [dependencies]
-anyhow = "1.0.52"
+anyhow = "1.0.75"
 camino = "1.0.3"
 diffy = "0.3"
 globset = "0.4.6"
