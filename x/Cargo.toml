@@ -10,7 +10,7 @@ license = "Apache-2.0 OR MIT"
 structopt = "0.3.21"
 anyhow = "1.0.75"
 env_logger = "0.8.3"
-log = "0.4.14"
+log = "0.4.20"
 chrono = "0.4.31"
 nexlint = { path = "../nexlint" }
 nexlint-lints = { path = "../nexlint-lints" }
