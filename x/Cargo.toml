@@ -9,7 +9,7 @@ license = "Apache-2.0 OR MIT"
 [dependencies]
 structopt = "0.3.26"
 anyhow = "1.0.75"
-env_logger = "0.8.3"
+env_logger = "0.10.0"
 log = "0.4.20"
 chrono = "0.4.31"
 nexlint = { path = "../nexlint" }
