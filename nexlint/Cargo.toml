@@ -6,7 +6,7 @@ license = "Apache-2.0 OR MIT"
 
 [dependencies]
 camino = { version = "1.0.3", features = ["serde1"] }
-debug-ignore = "1.0.1"
+debug-ignore = "1.0.5"
 determinator = "0.10.0"
 guppy = "0.15.0"
 hakari = { version = "0.13.0", features = ["cli-support"] }
