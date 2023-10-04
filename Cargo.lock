@@ -415,9 +415,9 @@ checksum = "92620684d99f750bae383ecb3be3748142d6095760afd5cbcf2261e9a279d780"
 
 [[package]]
 name = "hakari"
-version = "0.16.0"
+version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b662b31e7862ecf1037edfcd843e69753f4f601146318e180801f628b72c1e67"
+checksum = "57d919de3d70926b00e8e4ccd9c3b9ec674e4a9579347e891457dda22e1af582"
 dependencies = [
  "atomicwrites",
  "bimap",
