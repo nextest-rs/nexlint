@@ -9,7 +9,7 @@ anyhow = "1.0.75"
 camino = "1.1.6"
 diffy = "0.3"
 globset = "0.4.13"
-guppy = "0.17.2"
+guppy = "0.17.3"
 nexlint = { path = "../nexlint" }
 regex = "1.10.2"
 serde = { version = "1.0.192", features = ["derive"] }
