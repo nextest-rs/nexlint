@@ -182,14 +182,3 @@ impl<'l> fmt::Display for LintKind<'l> {
         }
     }
 }
-
-pub mod prelude {
-    pub use super::{
-        content::{ContentContext, ContentLinter},
-        file_path::{FilePathContext, FilePathLinter},
-        package::{PackageContext, PackageLinter},
-        project::{ProjectContext, ProjectLinter},
-        runner::{LintEngine, LintEngineConfig, LintResults},
-        LintFormatter, LintKind, LintLevel, LintMessage, LintSource, Linter, RunStatus, SkipReason,
-    };
-}
