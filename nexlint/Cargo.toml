@@ -11,5 +11,5 @@ determinator = "0.12.0"
 guppy = "0.17.5"
 hakari = { version = "0.17.2", features = ["cli-support"] }
 hex = "0.4.3"
-once_cell = "1.18.0"
+once_cell = "1.19.0"
 serde = { version = "1.0.193", features = ["derive"] }
