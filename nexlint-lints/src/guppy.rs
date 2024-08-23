@@ -198,19 +198,22 @@ impl PackageLinter for CrateNamesPaths {
         }
 
         for build_target in ctx.metadata().build_targets() {
-            let target_name = build_target.name();
-            if target_name.contains('_') {
-                // If the path is implicitly specified by the name, don't warn about it.
-                let file_stem = build_target.path().file_stem();
-                if file_stem != Some(target_name) {
-                    out.write(
-                        LintLevel::Error,
-                        format!(
-                            "build target '{}' contains '_' (use '-' instead)",
-                            target_name
-                        ),
-                    );
+            use guppy::graph::BuildTargetId::*;
+            match build_target.id() {
+                Binary(target_name) | Example(target_name) if target_name.contains('_') => {
+                    // If the path is implicitly specified by the name, don't warn about it.
+                    let file_stem = build_target.path().file_stem();
+                    if file_stem != Some(target_name) {
+                        out.write(
+                            LintLevel::Error,
+                            format!(
+                                "build target '{}' contains '_' (use '-' instead)",
+                                target_name
+                            ),
+                        );
+                    }
                 }
+                _ => continue,
             }
         }
 
