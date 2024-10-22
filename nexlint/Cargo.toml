@@ -12,4 +12,4 @@ guppy = "0.17.8"
 hakari = { version = "0.17.5", features = ["cli-support"] }
 hex = "0.4.3"
 once_cell = "1.19.0"
-serde = { version = "1.0.210", features = ["derive"] }
+serde = { version = "1.0.211", features = ["derive"] }
