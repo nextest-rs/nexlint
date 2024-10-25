@@ -11,6 +11,6 @@ diffy = "0.3"
 globset = "0.4.15"
 guppy = "0.17.8"
 nexlint = { path = "../nexlint" }
-regex = "1.10.6"
+regex = "1.11.1"
 serde = { version = "1.0.213", features = ["derive"] }
 toml = "0.5.8"
