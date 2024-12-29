@@ -11,6 +11,6 @@ structopt = "0.3.26"
 anyhow = "1.0.95"
 env_logger = "0.10.1"
 log = "0.4.22"
-chrono = "0.4.38"
+chrono = "0.4.39"
 nexlint = { path = "../nexlint" }
 nexlint-lints = { path = "../nexlint-lints" }
