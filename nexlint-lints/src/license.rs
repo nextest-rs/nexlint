@@ -13,13 +13,13 @@ impl<'a> LicenseHeader<'a> {
     }
 }
 
-impl<'a> Linter for LicenseHeader<'a> {
+impl Linter for LicenseHeader<'_> {
     fn name(&self) -> &'static str {
         "license-header"
     }
 }
 
-impl<'a> ContentLinter for LicenseHeader<'a> {
+impl ContentLinter for LicenseHeader<'_> {
     fn pre_run<'l>(&self, file_ctx: &FilePathContext<'l>) -> Result<RunStatus<'l>> {
         // TODO: Add a way to pass around state between pre_run and run, so that this computation
         // only needs to be done once.

@@ -169,7 +169,7 @@ pub enum LintKind<'l> {
     Content(&'l Utf8Path),
 }
 
-impl<'l> fmt::Display for LintKind<'l> {
+impl fmt::Display for LintKind<'_> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             LintKind::Project => write!(f, "project"),

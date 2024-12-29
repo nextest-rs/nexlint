@@ -16,13 +16,13 @@ impl<'cfg> EofNewline<'cfg> {
     }
 }
 
-impl<'cfg> Linter for EofNewline<'cfg> {
+impl Linter for EofNewline<'_> {
     fn name(&self) -> &'static str {
         "eof-newline"
     }
 }
 
-impl<'cfg> ContentLinter for EofNewline<'cfg> {
+impl ContentLinter for EofNewline<'_> {
     fn pre_run<'l>(&self, file_ctx: &FilePathContext<'l>) -> Result<RunStatus<'l>> {
         Ok(skip_whitespace_checks(self.exceptions, file_ctx))
     }
@@ -54,13 +54,13 @@ impl<'cfg> TrailingWhitespace<'cfg> {
     }
 }
 
-impl<'cfg> Linter for TrailingWhitespace<'cfg> {
+impl Linter for TrailingWhitespace<'_> {
     fn name(&self) -> &'static str {
         "trailing-whitespace"
     }
 }
 
-impl<'cfg> ContentLinter for TrailingWhitespace<'cfg> {
+impl ContentLinter for TrailingWhitespace<'_> {
     fn pre_run<'l>(&self, file_ctx: &FilePathContext<'l>) -> Result<RunStatus<'l>> {
         Ok(skip_whitespace_checks(self.exceptions, file_ctx))
     }

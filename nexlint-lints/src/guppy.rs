@@ -42,7 +42,7 @@ impl<'cfg> BannedDeps<'cfg> {
     }
 }
 
-impl<'cfg> Linter for BannedDeps<'cfg> {
+impl Linter for BannedDeps<'_> {
     fn name(&self) -> &'static str {
         "banned-deps"
     }
@@ -131,13 +131,13 @@ impl<'cfg> EnforcedAttributes<'cfg> {
     }
 }
 
-impl<'cfg> Linter for EnforcedAttributes<'cfg> {
+impl Linter for EnforcedAttributes<'_> {
     fn name(&self) -> &'static str {
         "enforced-attributes"
     }
 }
 
-impl<'cfg> PackageLinter for EnforcedAttributes<'cfg> {
+impl PackageLinter for EnforcedAttributes<'_> {
     fn run<'l>(
         &self,
         ctx: &PackageContext<'l>,
@@ -269,13 +269,13 @@ impl<'cfg> DirectDepDups<'cfg> {
     }
 }
 
-impl<'cfg> Linter for DirectDepDups<'cfg> {
+impl Linter for DirectDepDups<'_> {
     fn name(&self) -> &'static str {
         "direct-dep-dups"
     }
 }
 
-impl<'cfg> ProjectLinter for DirectDepDups<'cfg> {
+impl ProjectLinter for DirectDepDups<'_> {
     fn run<'l>(
         &self,
         ctx: &ProjectContext<'l>,
