@@ -19,7 +19,7 @@ jobs:
         with:
           toolchain: stable
           components: rustfmt, clippy
-      - uses: Swatinem/rust-cache@a95ba195448af2da9b00fb742d14ffaaf3c21f43
+      - uses: Swatinem/rust-cache@7e1e2d0a10862b34e5df481373b2b0f295d1a2ef
       - name: Lint (clippy)
         uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505 # v1
         with:
@@ -43,7 +43,7 @@ jobs:
       - uses: actions-rs/toolchain@16499b5e05bf2e26879000db0c1d13f7e13fa3af # v1
         with:
           toolchain: stable
-      - uses: Swatinem/rust-cache@a95ba195448af2da9b00fb742d14ffaaf3c21f43
+      - uses: Swatinem/rust-cache@7e1e2d0a10862b34e5df481373b2b0f295d1a2ef
       - name: run tests
         uses: actions-rs/cargo@844f36862e911db73fe0815f00a4a2602c279505 # v1
         with:
