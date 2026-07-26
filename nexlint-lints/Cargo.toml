@@ -8,7 +8,7 @@ license = "Apache-2.0 OR MIT"
 anyhow = "1.0.104"
 camino = "1.1.10"
 diffy = "0.4"
-globset = "0.4.16"
+globset = "0.4.19"
 guppy = "0.17.19"
 nexlint = { path = "../nexlint" }
 regex = "1.11.1"
