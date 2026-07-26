@@ -85,7 +85,7 @@ impl<'cfg> LintEngine<'cfg> {
         }
     }
 
-    pub fn run(&self) -> Result<LintResults> {
+    pub fn run(&self) -> Result<LintResults<'_>> {
         let mut skipped = vec![];
         let mut messages = vec![];
 
