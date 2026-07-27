@@ -6,7 +6,7 @@ license = "Apache-2.0 OR MIT"
 
 [dependencies]
 anyhow = "1.0.104"
-camino = "1.1.10"
+camino = "1.2.4"
 diffy = "0.4"
 globset = "0.4.19"
 guppy = "0.17.26"
