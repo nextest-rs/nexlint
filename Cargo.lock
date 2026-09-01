@@ -160,9 +160,9 @@ dependencies = [
 
 [[package]]
 name = "cfg-expr"
-version = "0.20.8"
+version = "0.20.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb693542bcafa528e198be0ebd9d3632ca5b7c93dbe7237460e199910835997c"
+checksum = "fe4ece8474b5f766c63426647e7b4b316b67431ade1036a8313cee24a03ae917"
 dependencies = [
  "smallvec",
  "target-lexicon",
@@ -255,7 +255,7 @@ checksum = "bf14b901cdfba3f731d01c4c184100e85f586a272d38874824175b845dbaeaf9"
 dependencies = [
  "camino",
  "globset",
- "guppy",
+ "guppy 0.17.26",
  "guppy-workspace-hack",
  "once_cell",
  "petgraph 0.6.5",
@@ -409,6 +409,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "guppy"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "790eaa3f2acc0210783d4af5ab8fe019ab07935d8dc0e64324120bbee9b142b7"
+dependencies = [
+ "ahash",
+ "camino",
+ "cargo_metadata",
+ "cfg-if",
+ "debug-ignore",
+ "fixedbitset 0.5.7",
+ "guppy-workspace-hack",
+ "indexmap 2.14.0",
+ "itertools 0.15.0",
+ "nested",
+ "once_cell",
+ "pathdiff",
+ "petgraph 0.8.3",
+ "semver",
+ "serde",
+ "serde_json",
+ "smallvec",
+ "static_assertions",
+ "target-spec",
+]
+
+[[package]]
 name = "guppy-summaries"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -441,7 +468,7 @@ dependencies = [
  "cfg-if",
  "debug-ignore",
  "diffy",
- "guppy",
+ "guppy 0.17.26",
  "guppy-workspace-hack",
  "iddqd",
  "include_dir",
@@ -636,6 +663,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b4baf93f58d4425749ca49a51c50ebab072c5df6994d08fed93541c331481dc"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -702,7 +738,7 @@ dependencies = [
  "camino",
  "debug-ignore",
  "determinator",
- "guppy",
+ "guppy 0.18.0",
  "hakari",
  "hex",
  "once_cell",
@@ -717,7 +753,7 @@ dependencies = [
  "camino",
  "diffy",
  "globset",
- "guppy",
+ "guppy 0.18.0",
  "nexlint",
  "regex",
  "serde",
@@ -1070,9 +1106,9 @@ checksum = "adb6935a6f5c20170eeceb1a3835a49e12e19d792f6dd344ccc76a985ca5a6ca"
 
 [[package]]
 name = "target-spec"
-version = "3.6.0"
+version = "3.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b00e973676af5497c2a69cc9787e2205c00f3b6f4f70e7d7b0112e28aa84b501"
+checksum = "4e117cdea67a83bf392bc69fb07cfc37e948e95991eca900c413a2bb1b494807"
 dependencies = [
  "cfg-expr",
  "guppy-workspace-hack",
